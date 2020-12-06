@@ -1,0 +1,16 @@
+// Need this for webpack to find calendar styles
+@import "~react-big-calendar/lib/sass/styles";
+@import "~react-big-calendar/lib/addons/dragAndDrop/styles";
+
+// Hide times in event blocks
+.rbc-event-label {
+  display: none;
+}
+
+// Center event names in blocks
+.rbc-event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
