@@ -115,16 +115,8 @@ const Layout = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5" align="center">
-              Go to{" "}
-              <a
-                href="https://github.com/benibienz/site/tree/project2"
-                target="_blank"
-                rel="noreferrer"
-              >
-                the repo
-              </a>{" "}
-              to see the mockup and discussion
+            <Typography variant="body2" align="center">
+              © 2020 Benjamin Bienz
             </Typography>
           </Grid>
         </Grid>
