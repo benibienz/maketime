@@ -1,5 +1,4 @@
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import purple from "@material-ui/core/colors/purple";
 import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
@@ -81,7 +80,7 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
     return () => {
       document.removeEventListener("keydown", handleDeleteKeyPress, false);
     };
-  }, [selectedEvent]);
+  }, [deleteEvent, selectedEvent]);
 
   // DnD operations
   const handleMoveOrResizeEvent = ({ event, start, end }) => {
