@@ -80,7 +80,8 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
     return () => {
       document.removeEventListener("keydown", handleDeleteKeyPress, false);
     };
-  }, [deleteEvent, selectedEvent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedEvent]);
 
   // DnD operations
   const handleMoveOrResizeEvent = ({ event, start, end }) => {
