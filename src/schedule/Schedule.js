@@ -2,9 +2,12 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import { Container } from "../components";
+import { Card } from "../components";
 import { useState, useEffect } from "react";
 import AddEventDialog from "./AddEventDialog";
+import { Height, VerticalAlignCenter } from "@material-ui/icons";
+import { IconButton } from "@material-ui/core";
+import { useToggle } from "react-use";
 
 const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -17,8 +20,9 @@ const startDate = new Date();
 startDate.setDate(startDate.getDate() + ((7 - startDate.getDay()) % 7) + 1);
 startDate.setHours(0, 0, 0, 0);
 
-const Schedule = ({ activities, setActivities, largeSize }) => {
+const Schedule = ({ activities, setActivities }) => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [largeSize, toggleSize] = useToggle(false);
   const [selectedSlot, setSelectedSlot] = useState({});
   const [selectedEvent, setSelectedEvent] = useState();
   // There are 7 default events already so the first ID is 7
@@ -83,8 +87,31 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedEvent]);
 
+  let events = activities.map((a) => a.events).flat();
+
   // DnD operations
   const handleMoveOrResizeEvent = ({ event, start, end }) => {
+    let startDay = start.getDate();
+    let endDay = end.getDate();
+
+    // Cut just before midnight if overlapping end of day
+    if (startDay !== endDay) {
+      end.setDate(startDay);
+      end.setHours(23);
+      end.setMinutes(59);
+    }
+
+    //  Reset if overlapping with other event
+    let sameDayEvents = events.filter(
+      (e) => e.start.getDate() === startDay && e.id !== event.id
+    );
+    sameDayEvents.forEach((ev) => {
+      if (start <= ev.end && end >= ev.start) {
+        start = event.start;
+        end = event.end;
+      }
+    });
+
     // this looks complex but it's just accessing the right event in the nested state
     setActivities((activities) =>
       activities.map((a) =>
@@ -100,12 +127,20 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
     );
   };
 
-  let events = activities.map((a) => a.events).flat();
+  const expandIcon = (
+    <IconButton arie-label="toggle-calendar-height" onClick={toggleSize}>
+      {largeSize ? (
+        <VerticalAlignCenter color="secondary" />
+      ) : (
+        <Height color="secondary" />
+      )}
+    </IconButton>
+  );
 
   return (
     <ClickAwayListener onClickAway={handleClickOutsideContainer}>
       <div>
-        <Container title="Schedule">
+        <Card title="Schedule" icon={expandIcon}>
           <DnDCalendar
             events={events}
             // Formatting
@@ -115,11 +150,6 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
             defaultDate={startDate}
             localizer={momentLocalizer(moment)}
             toolbar={false}
-            // Mouse clicks
-            selected={selectedEvent}
-            selectable="ignoreEvents"
-            onSelectEvent={handleSelectEvent}
-            onSelectSlot={handleSelectSlot}
             eventPropGetter={(event, start, end, isSelected) => {
               let activityColor = activities.find((a) => a.name === event.title)
                 .color;
@@ -129,6 +159,12 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
                 return { style: { background: activityColor[800] } };
               }
             }}
+            formats={{ dayFormat: "ddd", timeGutterFormat: "H:mm" }}
+            // Mouse clicks
+            selected={selectedEvent}
+            selectable="ignoreEvents"
+            onSelectEvent={handleSelectEvent}
+            onSelectSlot={handleSelectSlot}
             // Drag n Drop
             onEventDrop={handleMoveOrResizeEvent}
             onEventResize={handleMoveOrResizeEvent}
@@ -138,7 +174,7 @@ const Schedule = ({ activities, setActivities, largeSize }) => {
             onSelect={handleSelectActivityFromDialog}
             open={openDialog}
           />
-        </Container>
+        </Card>
       </div>
     </ClickAwayListener>
   );

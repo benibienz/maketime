@@ -14,3 +14,18 @@
   justify-content: center;
   text-align: center;
 }
+
+// Hide all-day event cells
+.rbc-allday-cell {
+  display: none;
+}
+
+// Format day headers
+.rbc-header {
+  font-size: 110%;
+  padding: 0.6ch 0ch;
+}
+
+.rbc-header > a {
+  cursor: default;
+}

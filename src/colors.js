@@ -1,5 +1,5 @@
 // prettier-ignore
-import {purple, red, orange, teal, pink, green, blue, yellow, cyan, indigo} from "@material-ui/core/colors";
+import {purple, red, orange, teal, pink, green, yellow, cyan, deepOrange, deepPurple} from "@material-ui/core/colors";
 
 //  From https://stackoverflow.com/a/12646864
 const shuffleArray = (array) => {
@@ -11,7 +11,7 @@ const shuffleArray = (array) => {
 
 const generateColorList = () => {
   // prettier-ignore
-  let colorList = [purple, red, orange, teal, pink, green, blue, yellow, cyan, indigo];
+  let colorList = [purple, red, orange, teal, pink, green, yellow, cyan, deepOrange, deepPurple];
   shuffleArray(colorList);
   return colorList;
 };

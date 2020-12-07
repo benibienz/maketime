@@ -4,37 +4,45 @@ import {
   Typography,
   TableRow,
   TableCell,
+  Grid,
 } from "@material-ui/core";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 
-const UnstyledContainer = ({ title, children, classes }) => {
+const UnstyledCard = ({ title, children, classes, icon }) => {
   return (
-    <Paper className={classes.root}>
-      <Typography variant="h4" align="center">
-        {title}
-      </Typography>
+    <Paper className={classes.root} elevation={3}>
+      <Grid container justify="center" className={classes.title}>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={10}>
+          <Typography variant="h4" align="center" gutterBottom>
+            {title}
+          </Typography>
+        </Grid>
+        <Grid item container justify="center" alignItems="center" xs={1}>
+          <Grid item>{icon}</Grid>
+        </Grid>
+      </Grid>
       <div className={classes.view}>{children}</div>
     </Paper>
   );
 };
 
-const Container = withStyles((theme) => ({
+const Card = withStyles((theme) => ({
   root: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(2, 0, 0, 2),
-    "& > h4": {
-      marginBottom: theme.spacing(1),
-    },
+    textAlign: "center",
+  },
+  title: {
+    paddingTop: theme.spacing(1),
+    borderBottomStyle: "solid",
+    borderWidth: "1px",
+    // borderColor: theme.palette.grey[400],
+    borderColor: theme.palette.primary.light,
   },
   view: {
-    borderTopStyle: "solid",
-    borderLeftStyle: "solid",
-    borderWidth: "0.5px",
-    borderColor: theme.palette.grey[300],
-    overflow: "scroll",
-    maxHeight: "70vh",
+    padding: theme.spacing(1),
+    [theme.breakpoints.up("lg")]: { maxHeight: "72vh", overflowY: "scroll" },
   },
-}))(UnstyledContainer);
+}))(UnstyledCard);
 
 const DividerTableRow = withStyles((theme) => ({
   root: {
@@ -56,4 +64,4 @@ const CheckIcon = withStyles((theme) => ({
   },
 }))(CheckCircle);
 
-export { Container, DividerTableRow, NumberCell, CheckIcon };
+export { Card, DividerTableRow, NumberCell, CheckIcon };

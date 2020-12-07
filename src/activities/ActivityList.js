@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { Container, DividerTableRow, NumberCell } from "../components";
+import { Card, DividerTableRow, NumberCell } from "../components";
 import Activity from "./Activity";
 import AddActivityButton from "./AddActivityButton";
 import { sumHours } from "../schedule/events";
@@ -74,14 +74,19 @@ const ActivityList = ({
   deleteActivity,
   setTargetHours,
 }) => {
-  let totalTargetHours = activities.reduce((a, b) => a + b.targetHours, 0);
+  let totalTargetHours = activities.reduce(
+    (a, b) => a + (isNaN(b.targetHours) ? 0 : b.targetHours),
+    0
+  );
   let totalScheduledHours = activities.reduce(
     (a, b) => a + sumHours(b.events),
     0
   );
 
+  const activityNames = activities.map((a) => a.name);
+
   return (
-    <Container title="Weekly Hours">
+    <Card title="Weekly Hours">
       <TableContainer>
         <Table>
           <Headers />
@@ -99,7 +104,10 @@ const ActivityList = ({
             ))}
             <DividerTableRow>
               <TableCell align="center">
-                <AddActivityButton addActivity={addActivity} />
+                <AddActivityButton
+                  addActivity={addActivity}
+                  names={activityNames}
+                />
               </TableCell>
               <TableCell />
               <TableCell />
@@ -111,7 +119,7 @@ const ActivityList = ({
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </Card>
   );
 };
 

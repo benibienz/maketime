@@ -19,6 +19,10 @@ const generateSleepDefaults = (startDate) => {
 };
 
 const sumHours = (eventsArray) =>
-  eventsArray.reduce((a, b) => a + (b.end - b.start) / 1000 / 60 / 60, 0);
+  eventsArray.reduce(
+    // round to nearest 30 mins
+    (a, b) => a + Math.round((b.end - b.start) / 1000 / 60 / 30) / 2,
+    0
+  );
 
 export { generateSleepDefaults, sumHours };

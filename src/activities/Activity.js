@@ -43,7 +43,15 @@ const Activity = ({
           type="number"
           size="small"
           label="Hours"
-          value={targetHours}
+          error={isNaN(targetHours)}
+          // From https://stackoverflow.com/a/59917771
+          InputProps={{
+            inputProps: {
+              max: 168,
+              min: 0,
+            },
+          }}
+          value={isNaN(targetHours) ? "" : targetHours}
           onChange={(e) => setTargetHours(name, e.target.value)}
         />
       </TableCell>

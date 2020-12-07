@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {
+  makeStyles,
   Button,
   Dialog,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   TextField,
   Fab,
@@ -11,11 +11,19 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
-const AddActivityButton = ({ addActivity }) => {
+const useStyles = makeStyles((theme) => ({
+  inputField: {
+    margin: theme.spacing(0, 1, 1, 0),
+  },
+}));
+
+const AddActivityButton = ({ addActivity, names }) => {
   const [open, setOpen] = useState(false);
   const [newActivityText, setNewActivityText] = useState("");
 
-  // TODO: validate no same names
+  const classes = useStyles();
+
+  let errorState = names.includes(newActivityText);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +41,7 @@ const AddActivityButton = ({ addActivity }) => {
       <Fab
         variant="extended"
         size="medium"
-        color="primary"
+        color="secondary"
         aria-label="add"
         onClick={() => setOpen(true)}
       >
@@ -47,10 +55,6 @@ const AddActivityButton = ({ addActivity }) => {
       >
         <DialogTitle id="add-new-activity">Add new activity</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Add something you have to do (e.g. work) or want to do (e.g. learn
-            Spanish):
-          </DialogContentText>
           <form onSubmit={handleSubmit}>
             <Grid
               container
@@ -62,9 +66,13 @@ const AddActivityButton = ({ addActivity }) => {
               <Grid item>
                 <TextField
                   autoFocus
+                  className={classes.inputField}
                   variant="filled"
-                  label="New activity"
+                  label="Activity"
+                  placeholder="(e.g. Work)"
                   value={newActivityText}
+                  error={errorState}
+                  helperText={errorState && "This activity already exists"}
                   onChange={(e) => setNewActivityText(e.target.value)}
                 />
               </Grid>
@@ -72,8 +80,8 @@ const AddActivityButton = ({ addActivity }) => {
                 <Button
                   type="submit"
                   variant="contained"
-                  color="primary"
-                  disabled={!newActivityText}
+                  color="secondary"
+                  disabled={!newActivityText || errorState}
                 >
                   Add
                 </Button>
