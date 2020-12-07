@@ -106,7 +106,7 @@ const Schedule = ({ activities, setActivities }) => {
       (e) => e.start.getDate() === startDay && e.id !== event.id
     );
     sameDayEvents.forEach((ev) => {
-      if (start <= ev.end && end >= ev.start) {
+      if (start < ev.end && end > ev.start) {
         start = event.start;
         end = event.end;
       }
