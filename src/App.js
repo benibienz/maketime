@@ -74,8 +74,8 @@ const Layout = () => {
   return (
     <div className={classes.root}>
       <TopBar />
-      <Container maxWidth="lg" className={classes.grid}>
-        <Grid container spacing={3} justify="center">
+      <Container maxWidth="xl" className={classes.grid}>
+        <Grid container spacing={3} justify="space-evenly">
           <Grid item xs={12} lg={4} className={classes.activityList}>
             <ActivityList
               activities={activities}

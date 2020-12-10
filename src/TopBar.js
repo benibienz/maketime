@@ -104,7 +104,7 @@ const TopBar = () => {
 
   return (
     <AppBar color="primary" position="static">
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Toolbar>
           <Typography
             variant="h4"
