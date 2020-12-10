@@ -1,14 +1,18 @@
 import { createMuiTheme } from "@material-ui/core";
-import { indigo, blue } from "@material-ui/core/colors";
+import { blue, indigo } from "@material-ui/core/colors";
 
+// Other attributes are default values
+// See: https://material-ui.com/customization/default-theme/#default-theme
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: indigo[900],
-      light: indigo[200],
     },
     secondary: {
       main: blue["A200"],
+    },
+    text: {
+      secondary: "rgba(0, 0, 10, 0.67)",
     },
   },
   typography: {

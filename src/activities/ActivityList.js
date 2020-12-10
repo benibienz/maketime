@@ -8,13 +8,13 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { Card, DividerTableRow, NumberCell } from "../components";
+import { Card, CheckIcon, DividerTableRow, NumberCell } from "../components";
+import { sumHours } from "../schedule/events";
 import Activity from "./Activity";
 import AddActivityButton from "./AddActivityButton";
-import { sumHours } from "../schedule/events";
-import { CheckIcon } from "../components";
 
 const HOURS_IN_WEEK = 168;
+const MAX_ACTIVITIES = 14; // equal to numnber of different colors imported
 
 const Headers = () => (
   <>
@@ -102,16 +102,22 @@ const ActivityList = ({
                 handleDelete={() => deleteActivity(a.name)}
               />
             ))}
-            <DividerTableRow>
-              <TableCell align="center">
-                <AddActivityButton
-                  addActivity={addActivity}
-                  names={activityNames}
-                />
-              </TableCell>
-              <TableCell />
-              <TableCell />
-            </DividerTableRow>
+
+            {activities.length < MAX_ACTIVITIES ? (
+              <DividerTableRow>
+                <TableCell align="center">
+                  <AddActivityButton
+                    addActivity={addActivity}
+                    names={activityNames}
+                  />
+                </TableCell>
+                <TableCell />
+                <TableCell />
+              </DividerTableRow>
+            ) : (
+              <DividerTableRow />
+            )}
+
             <HourTotals
               targetTotal={totalTargetHours}
               calendarTotal={totalScheduledHours}

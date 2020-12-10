@@ -5,9 +5,8 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { NumberCell } from "../components";
+import { CheckIcon, NumberCell } from "../components";
 import Chip from "./Chip";
-import { CheckIcon } from "../components";
 
 const useStyles = makeStyles((theme) => ({
   inputHours: {
@@ -44,12 +43,10 @@ const Activity = ({
           size="small"
           label="Hours"
           error={isNaN(targetHours)}
-          // From https://stackoverflow.com/a/59917771
+          // Todo: this doesn't work
           InputProps={{
-            inputProps: {
-              max: 168,
-              min: 0,
-            },
+            max: 168,
+            min: 0,
           }}
           value={isNaN(targetHours) ? "" : targetHours}
           onChange={(e) => setTargetHours(name, e.target.value)}

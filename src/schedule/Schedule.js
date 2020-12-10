@@ -1,13 +1,13 @@
+import { IconButton } from "@material-ui/core";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { Height, VerticalAlignCenter } from "@material-ui/icons";
 import moment from "moment";
+import { useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import { Card } from "../components";
-import { useState, useEffect } from "react";
-import AddEventDialog from "./AddEventDialog";
-import { Height, VerticalAlignCenter } from "@material-ui/icons";
-import { IconButton } from "@material-ui/core";
 import { useToggle } from "react-use";
+import { Card } from "../components";
+import AddEventDialog from "./AddEventDialog";
 
 const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -130,7 +130,7 @@ const Schedule = ({ activities, setActivities }) => {
   const expandIcon = (
     <IconButton arie-label="toggle-calendar-height" onClick={toggleSize}>
       {largeSize ? (
-        <VerticalAlignCenter color="secondary" />
+        <VerticalAlignCenter color="secondary" fontSize="small" />
       ) : (
         <Height color="secondary" />
       )}

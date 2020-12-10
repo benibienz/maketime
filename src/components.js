@@ -1,20 +1,20 @@
 import {
-  withStyles,
-  Paper,
-  Typography,
-  TableRow,
-  TableCell,
   Grid,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  withStyles,
 } from "@material-ui/core";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 
 const UnstyledCard = ({ title, children, classes, icon }) => {
   return (
-    <Paper className={classes.root} elevation={3}>
+    <>
       <Grid container justify="center" className={classes.title}>
         <Grid item xs={1}></Grid>
-        <Grid item xs={10}>
-          <Typography variant="h4" align="center" gutterBottom>
+        <Grid item container direction="column" xs={10} justify="center">
+          <Typography variant="h5" align="center">
             {title}
           </Typography>
         </Grid>
@@ -22,21 +22,20 @@ const UnstyledCard = ({ title, children, classes, icon }) => {
           <Grid item>{icon}</Grid>
         </Grid>
       </Grid>
-      <div className={classes.view}>{children}</div>
-    </Paper>
+      <Paper className={classes.root} elevation={3}>
+        <div className={classes.view}>{children}</div>
+      </Paper>
+    </>
   );
 };
 
 const Card = withStyles((theme) => ({
   root: {
     textAlign: "center",
+    overflow: "hidden",
   },
   title: {
-    paddingTop: theme.spacing(1),
-    borderBottomStyle: "solid",
-    borderWidth: "1px",
-    // borderColor: theme.palette.grey[400],
-    borderColor: theme.palette.primary.light,
+    minHeight: "5ch",
   },
   view: {
     padding: theme.spacing(1),

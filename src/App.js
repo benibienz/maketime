@@ -2,23 +2,24 @@ import {
   Container,
   Grid,
   makeStyles,
-  Typography,
   ThemeProvider,
+  Typography,
 } from "@material-ui/core";
+import grey from "@material-ui/core/colors/grey";
 import { useState } from "react";
 import ActivityList from "./activities/ActivityList";
 import "./App.scss";
-import { Schedule, startDate } from "./schedule/Schedule";
-import { generateSleepDefaults } from "./schedule/events";
 import generateColorList from "./colors";
-import grey from "@material-ui/core/colors/grey";
-import TopBar from "./TopBar";
+import { generateSleepDefaults } from "./schedule/events";
+import { Schedule, startDate } from "./schedule/Schedule";
 import theme from "./theme";
+import TopBar from "./TopBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     minHeight: "100vh",
     backgroundColor: theme.palette.grey[300],
   },
@@ -73,7 +74,7 @@ const Layout = () => {
   return (
     <div className={classes.root}>
       <TopBar />
-      <Container maxWidth={false} className={classes.grid}>
+      <Container maxWidth="lg" className={classes.grid}>
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} lg={4} className={classes.activityList}>
             <ActivityList
