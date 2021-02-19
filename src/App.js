@@ -94,7 +94,7 @@ const Layout = () => {
         </Grid>
       </Container>
       <Typography variant="body2" align="center" className={classes.copyright}>
-        © 2020 Beni Bienz -{" "}
+        Copyright © Benjamin Bienz {new Date().getFullYear()} -{" "}
         <a
           href="https://github.com/benibienz/maketime"
           target="_blank"
