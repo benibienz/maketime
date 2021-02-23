@@ -14,10 +14,8 @@ const DnDCalendar = withDragAndDrop(Calendar);
 // Set Monday as first day of week
 moment.updateLocale("en", { week: { dow: 1 } });
 
-// Set the calendar to start next Monday
-// From https://stackoverflow.com/a/33078648 and https://stackoverflow.com/a/3894087
+// Set the calendar to start sometime
 const startDate = new Date();
-startDate.setDate(startDate.getDate() + ((7 - startDate.getDay()) % 7) + 1);
 startDate.setHours(0, 0, 0, 0);
 
 const Schedule = ({ activities, setActivities }) => {
