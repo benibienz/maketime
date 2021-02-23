@@ -15,8 +15,7 @@ const DnDCalendar = withDragAndDrop(Calendar);
 moment.updateLocale("en", { week: { dow: 1 } });
 
 // Set the calendar to start sometime
-const startDate = new Date();
-startDate.setHours(0, 0, 0, 0);
+const startDate = new Date(2021, 1, 1);
 
 const Schedule = ({ activities, setActivities }) => {
   const [openDialog, setOpenDialog] = useState(false);
