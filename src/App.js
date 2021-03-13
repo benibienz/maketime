@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActivityList from "./activities/ActivityList";
 import "./App.scss";
 import generateColorList from "./colors";
@@ -38,19 +38,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const defaultActivities = [
-  {
-    name: "Sleep",
-    targetHours: 56,
-    events: generateSleepDefaults(startDate),
-    color: grey,
-  },
-];
-
 const Layout = () => {
   const classes = useStyles();
-  const [activities, setActivities] = useState(defaultActivities);
+  const [activities, setActivities] = useState([]);
   const [colorList, setColorList] = useState(generateColorList());
+
+  useEffect(
+    () =>
+      setActivities([
+        {
+          name: "Sleep",
+          targetHours: 56,
+          events: generateSleepDefaults(startDate),
+          color: grey,
+        },
+      ]),
+    []
+  );
 
   const addActivity = (activity) => {
     activity = { ...activity, color: colorList[0] };
